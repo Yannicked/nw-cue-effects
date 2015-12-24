@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>Cue Effects</title>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		
+		<style>
+			body {
+				background-color: #333;
+			}
+			.container {
+				color: #fff;
+			}
+			h4 {
+				margin-top:8.5px;
+				margin-bottom:8.5px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<h3 class="text-center">Node Cue Effects</h3>
+			</div>
+			<div class="row">
+				<h4 class="col-xs-6">Ambient</h4>
+				<button id="toggle-ambient" class="btn btn-danger col-xs-6 toggle" data-toggle="ambient" data-state="off">Off</button>
+			</div>
+			<div class="row">
+				<h4 class="col-xs-6">Heatmap</h4>
+				<button id="toggle-heatmap" class="btn btn-danger col-xs-6 toggle" data-toggle="heatmap" data-state="off">Off</button>
+			</div>
+		</div>
+	
+		<script src="js/jquery.min.js"></script>
+	
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			var ambient = require('node-cue-ambient');
+			var heatmap = require('node-cue-heatmap');
+			
+			$('.toggle').click(function() {
+				if (anyon().length > 0 && $(this).data('state') != 'on') {
+					var t = anyon();
+					switch (t.data('toggle')) {
+						case 'ambient':
+							ambient.destroy();
+							break;
+						case 'heatmap':
+							heatmap.destroy();
+							break;
+					}
+					off(t);
+					switch ($(this).data('toggle')) {
+						case 'ambient':
+							ambient.create();
+							break;
+						case 'heatmap':
+							heatmap.create();
+							break;
+					}
+					on($(this))
+				} else {
+					if ($(this).data('state') == 'on') {
+						switch ($(this).data('toggle')) {
+							case 'ambient':
+								ambient.destroy();
+								break;
+							case 'heatmap':
+								heatmap.destroy();
+								break;
+						}
+						off($(this))
+					} else {
+						switch ($(this).data('toggle')) {
+						case 'ambient':
+							ambient.create();
+							break;
+						case 'heatmap':
+							heatmap.create();
+							break;
+						}
+						on($(this))
+					}
+				}
+			});
+			
+			function anyon() {
+				var r = []
+				$('.toggle').each(function() {
+					if ($(this).data('state') == 'on') {
+						r = $(this);
+					}
+				});
+				return r;
+			}
+			
+			function on(t) {
+				t.data('state', 'on');
+				t.addClass('btn-success');
+				t.removeClass('btn-danger');
+				t.text('On');
+			}
+			
+			function off(t) {
+				t.data('state', 'off');
+				t.removeClass('btn-success');
+				t.addClass('btn-danger');
+				t.text('Off');
+			}
+		
+		</script>
+	</body>
+</html>
