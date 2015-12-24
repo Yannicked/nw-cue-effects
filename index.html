@@ -42,8 +42,23 @@
 	
 		<script src="js/bootstrap.min.js"></script>
 		<script>
+			var gui = require('nw.gui');
 			var ambient = require('node-cue-ambient');
 			var heatmap = require('node-cue-heatmap');
+			
+			var win = gui.Window.get();
+			var tray;
+
+			win.on('minimize', function() {
+				this.hide();
+				tray = new gui.Tray({'title': 'Cue Effects', icon: 'img/icon.png'});
+			  
+				tray.on('click', function() {
+					win.show();
+					this.remove();
+					tray = null;
+				});
+			});
 			
 			$('.toggle').click(function() {
 				if (anyon().length > 0 && $(this).data('state') != 'on') {
