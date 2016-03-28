@@ -1,5 +1,5 @@
 {
-  "name": "cue-heatmap",
+  "name": "cue-effects",
   "version": "0.0.1",
   "main": "index.html",
   "dependencies": {
@@ -7,11 +7,11 @@
 	"node-cue-ambient": "git+https://github.com/Yannicked/node-cue-ambient"
   },
   "window": {
-    "title": "Cue Heatmap",
+    "title": "Cue Effects",
     "toolbar": false,
     "frame": true,
-    "width": 210,
-    "height": 130,
+    "width": 220,
+    "height": 160,
     "position": "mouse",
 	"resizable": false
   }
